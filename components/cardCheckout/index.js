@@ -1,4 +1,3 @@
-// import Image from "next/image";
 export default function CardCheckout() {
   return (
     <>
@@ -18,12 +17,6 @@ export default function CardCheckout() {
           <p className="font-semibold py-5 md:py-0 pr-1">Rp 99.998</p>
         </div>
       </div>
-      {/* <Image
-        src="https://placeimg.com/400/225/arch"
-        width={200}
-        height={200}
-        alt="profile"
-      /> */}
     </>
   );
 }
