@@ -5,11 +5,13 @@ export default function FormLogin() {
     <div className="flex md:mt-28 md:mx-4 lg:mt-24 xl:max-w-6xl lg:mx-auto">
       {/* getbook icon || image and Hello! */}
       <div className="hidden md:block md:w-full">
-        <img
-          className="mx-auto mt-20 w-[300px] md:mt-40 lg:mt-5"
-          src="https://cdn.discordapp.com/attachments/929013677045194802/1003923645590163506/unknown.png"
-          alt="icon"
-        />
+        <Link href="/auth/welcome">
+          <img
+            className="mx-auto mt-20 w-[300px] md:mt-40 lg:mt-5"
+            src="https://cdn.discordapp.com/attachments/929013677045194802/1003923645590163506/unknown.png"
+            alt="icon"
+          />
+        </Link>
         <img
           className="mx-auto w-[290px] lg:w-[360px]"
           src="https://cdn.discordapp.com/attachments/929013677045194802/1004004222070702161/book-people.png"
