@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
 import CardProduct from "../components/cardProduct";
 import Layout from "../components/layout";
 
@@ -11,6 +14,15 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ books }) {
+  const token = localStorage.getItem("token");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      router.push("/auth/welcome");
+    }
+  });
+
   return (
     <Layout headTitle="getbook">
       <div className="p-8">

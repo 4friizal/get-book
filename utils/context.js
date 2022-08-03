@@ -6,3 +6,5 @@ const ctx = {
 };
 
 export const ThemeContext = createContext(ctx);
+export const TokenContext = createContext();
+export const RoleContext = createContext();
