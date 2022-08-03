@@ -2,7 +2,7 @@ import Link from "next/dist/client/link";
 
 export default function FormLogin() {
   return (
-    <div className="flex md:mt-28 md:mx-4 lg:mt-24">
+    <div className="flex md:mt-28 md:mx-4 lg:mt-24 xl:max-w-6xl lg:mx-auto">
       {/* getbook icon || image and Hello! */}
       <div className="hidden md:block md:w-full">
         <img
@@ -20,9 +20,9 @@ export default function FormLogin() {
         </h1>
       </div>
       {/* form login */}
-      <div className="w-full lg:w-[722px] lg:mr-28">
-        <div className="md:mb-20 lg:mb-16">
-          <h1 className="font-Roboto font-extrabold text-5xl ml-8 mt-32 md:text-6xl lg:mt-0">
+      <div className="w-full md:mr-2 lg:mr-0 lg:ml-28">
+        <div className="md:mb-20 lg:mb-28">
+          <h1 className="font-Roboto font-extrabold text-5xl ml-8 mt-32 md:text-6xl lg:-mt-2">
             Welcome!
           </h1>
           <h5 className="font-Roboto italic ml-9 text-2xl text-[#2C322B]/20 md:text-3xl">
@@ -53,7 +53,7 @@ export default function FormLogin() {
             or
           </h1>
           <Link href="/auth/register">
-            <button className="mt-4 mx-auto text-[#25732D] font-Roboto font-medium bg-white py-3 w-full rounded-3xl shadow-lg">
+            <button className="my-4 mx-auto text-[#25732D] font-Roboto font-medium bg-white py-3 w-full rounded-3xl shadow-lg">
               Sign up
             </button>
           </Link>
