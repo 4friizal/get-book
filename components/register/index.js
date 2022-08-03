@@ -1,6 +1,51 @@
 import Link from "next/dist/client/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function FormRegister() {
+  const [fullname, setFullname] = useState("");
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      router.push("/");
+    }
+  });
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const body = {
+      fullname,
+      username,
+      phone,
+      password,
+    };
+    let requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+    fetch("http://34.143.186.209:9000/register", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const { message, data } = result;
+        if (data) {
+          router.push("/auth/login");
+        }
+        alert(message);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error.toString());
+      })
+      .finally(() => setLoading(false));
+  };
   return (
     <div className="flex md:mt-28 md:mx-4 lg:mt-16 xl:max-w-6xl lg:mx-auto">
       {/* getbook icon || image and Hello! */}
@@ -31,13 +76,14 @@ export default function FormRegister() {
             Create a new account
           </h5>
         </div>
-        <form className="mx-4 mt-9">
+        <form className="mx-4 mt-9" onSubmit={(e) => handleSubmit(e)}>
           <div>
             {/* fullname */}
             <input
               type="text"
               className="font-Roboto font-normal text-base pl-6 border-[#25732D] text-[#636F64]/50 rounded-3xl shadow-lg block w-full p-3"
               placeholder="Full Name"
+              onChange={(e) => setFullname(e.target.value)}
               required
             />
           </div>
@@ -47,6 +93,7 @@ export default function FormRegister() {
               type="text"
               className="mt-5 font-Roboto font-normal text-base pl-6 border-[#25732D] text-[#636F64]/50 rounded-3xl shadow-lg  block w-full p-3"
               placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -56,6 +103,7 @@ export default function FormRegister() {
               type="number"
               className="mt-5 font-Roboto font-normal text-base pl-6 border-[#25732D] text-[#636F64]/50 rounded-3xl shadow-lg  block w-full p-3"
               placeholder="Phone Number"
+              onChange={(e) => setPhone(e.target.value)}
               required
             />
           </div>
@@ -64,6 +112,7 @@ export default function FormRegister() {
               type="password"
               className="mt-5 font-Roboto font-normal text-base pl-6 border-[#25732D] text-[#636F64]/50 rounded-3xl shadow-lg  block w-full p-3"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
