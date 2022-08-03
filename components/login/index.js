@@ -1,6 +1,56 @@
+import { useRouter } from "next/router";
 import Link from "next/dist/client/link";
 
+import { useContext, useEffect, useState } from "react";
+import { TokenContext, RoleContext } from "../../utils/context";
+
 export default function FormLogin() {
+  const { token, setToken } = useContext(TokenContext);
+  const [role, setRole] = useState(RoleContext);
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (token !== "0") {
+      router.push("/");
+    }
+  });
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const body = {
+      username,
+      password,
+    };
+    var requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+    fetch("http://34.143.186.209:9000/login", requestOptions).then((response) =>
+      response
+        .json()
+        .then((result) => {
+          const { message, role, token } = result;
+          if (token) {
+            localStorage.setItem("token", token);
+            localStorage.setItem("role", role);
+            setToken(token);
+            setRole(role);
+            router.push("/");
+          }
+          alert(message);
+        })
+        .catch((err) => {
+          alert(err.toString());
+        })
+        .finally(() => setLoading(false))
+    );
+  };
+
   return (
     <div className="flex md:mt-28 md:mx-4 lg:mt-24 xl:max-w-6xl lg:mx-auto">
       {/* getbook icon || image and Hello! */}
@@ -31,12 +81,13 @@ export default function FormLogin() {
             Sign in to continue
           </h5>
         </div>
-        <form className="mx-4 mt-9">
+        <form className="mx-4 mt-9" onSubmit={(e) => handleSubmit(e)}>
           <div>
             <input
               type="text"
               className="font-Roboto font-normal text-base pl-6 border-[#25732D] text-[#636F64]/50 rounded-3xl shadow-lg block w-full p-3"
               placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -45,6 +96,7 @@ export default function FormLogin() {
               type="password"
               className="mt-5 font-Roboto font-normal text-base pl-6 border-[#25732D] text-[#636F64]/50 rounded-3xl shadow-lg  block w-full p-3"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>

@@ -1,6 +1,17 @@
 import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Welcome() {
+  const router = useRouter();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      router.push("/");
+    }
+  });
+
   return (
     <div className="flex flex-col justify-center">
       <img
