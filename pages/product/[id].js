@@ -24,7 +24,7 @@ export default function ProductDetail() {
   useEffect(() => {
     setLoading(true);
     if (router.isReady) {
-      fetch(`https://server.athaprojects.me/${id}`)
+      fetch(`https://server.athaprojects.me/books/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setBook(data.data);
