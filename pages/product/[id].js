@@ -24,7 +24,7 @@ export default function ProductDetail() {
   useEffect(() => {
     setLoading(true);
     if (router.isReady) {
-      fetch(`http://34.143.186.209:9000/books/${id}`)
+      fetch(`https://server.athaprojects.me/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setBook(data.data);
