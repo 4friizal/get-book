@@ -45,7 +45,7 @@ export default function Profile() {
       },
     };
 
-    fetch("http://34.143.186.209:9000/users", requestOptions)
+    fetch("https://server.athaprojects.me/users", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         const { message, code, data } = result;
@@ -67,6 +67,10 @@ export default function Profile() {
       })
       .finally(() => setLoading(false));
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <Layout>
       <DetailProfile
