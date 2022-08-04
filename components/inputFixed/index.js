@@ -12,7 +12,7 @@ export default function InputFixed({
       type={type}
       placeholder={placeholder}
       onChange={onChange}
-      disabled={disabled}
+      // disabled={disabled}
     />
   );
 }
