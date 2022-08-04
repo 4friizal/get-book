@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   if (token) {
     return (
       <TokenContext.Provider value={jwtToken}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </TokenContext.Provider>
     );
   }
