@@ -2,9 +2,7 @@ import CardHistory from "../../components/cardHistory";
 import Layout from "../../components/layout";
 
 export async function getServerSideProps() {
-  const response = await fetch(
-    "https://virtserver.swaggerhub.com/bookstore_group1/bookstore/1.0/orders"
-  );
+  const response = await fetch("https://server.athaprojects.me/orders");
   const data = await response.json();
 
   return {
