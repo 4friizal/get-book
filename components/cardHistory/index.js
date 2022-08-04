@@ -1,9 +1,17 @@
 import React from "react";
 
-export default function CardHistory() {
+export default function CardHistory({
+  id,
+  invoice_id,
+  order_id,
+  price,
+  qty,
+  title,
+}) {
   return (
     <>
-      <div className="py-2 px-1 font-Poppins my-[20px] mx-auto w-[90%] sm:w-[90%] lg:w-[85%] xl:w-[70%] shadow-[4px_4px_4px_rgba(0,0,0,0.25)] border-t-2 border-b-slate-400 border-l-2 border-b-slate-400 rounded-[20px] md:flex">
+      <div className="py-2 px-1 font-Poppins mx-auto w-[90%] sm:w-[90%] lg:w-[85%] xl:w-[70%] shadow-[4px_4px_4px_rgba(0,0,0,0.25)] border-t-2 border-b-slate-400 border-l-2 rounded-[20px] md:flex">
+        {/*input img  */}
         <img
           className="mt-[19px] sm:mt-0 mb-[22px] sm:mb-0 mx-auto w-[185px] h-[250px] border-4 border-black rounded-[20px] object-cover sm:self-center"
           src="https://placeimg.com/400/225/arch"
@@ -13,15 +21,20 @@ export default function CardHistory() {
         <div className="sm:flex sm:flex-col sm:justify-center md:w-[70%] lg:md:w-[78%]">
           <div className="flex  md:flex-row lg:flex-col justify-between px-2">
             <div>
+              {/* input title */}
               <h2 className="font-Roboto text-xl sm:text-2xl font-bold">
-                Spiderman Otw Home
+                {title}
               </h2>
-              <p>Stan Lee</p>
+              {/* input author */}
+              <p>{invoice_id}</p>
             </div>
             <div>
-              <p>Rp99.998</p>
-              <p> stock: 1 </p>
-              <p>id: 123</p>
+              {/* input price */}
+              <p> IDR {price}</p>
+              {/* input stock */}
+              <p> stock: {qty} </p>
+              {/* input ID  */}
+              <p>id: {id}</p>
             </div>
           </div>
 
