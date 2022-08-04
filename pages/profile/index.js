@@ -5,25 +5,6 @@ import Layout from "../../components/layout";
 import DetailProfile from "../../components/profile";
 import { TokenContext } from "../../utils/context";
 
-// export async function getServerSideProps() {
-//   const { setToken } = useContext(TokenContext);
-
-//   let requestOptions = {
-//     method: "GET",
-//     headers: {
-//       authorization: ``
-//     }
-//   }
-
-//   const response = await fetch("http://34.143.186.209:9000/users");
-//   const data = await response.json();
-//   console.log(data);
-
-//   return {
-//     props: {},
-//   };
-// }
-
 export default function Profile() {
   const route = useRouter();
   const { setToken } = useContext(TokenContext);
