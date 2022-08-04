@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TokenContext, RoleContext } from "../../utils/context";
+import { TokenContext, ThemeContext } from "../../utils/context";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -7,11 +7,14 @@ import {
   MdPersonOutline,
   MdAlternateEmail,
   MdOutlinePhone,
+  MdLightMode,
+  MdModeNight,
 } from "react-icons/md";
 
 export default function DetailProfile(props) {
   const router = useRouter();
   const { setToken } = useContext(TokenContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
 
@@ -21,6 +24,10 @@ export default function DetailProfile(props) {
     }
   });
 
+  const handleTheme = (mode) => {
+    setTheme(mode);
+  };
+
   const handleLogout = () => {
     setToken("0");
     localStorage.removeItem("token");
@@ -29,7 +36,7 @@ export default function DetailProfile(props) {
   };
 
   return (
-    <div className="h-screen lg:flex lg:items-center xl:max-w-6xl lg:mx-auto">
+    <div className="min-h-screen lg:flex lg:items-center xl:max-w-6xl lg:mx-auto">
       {" "}
       {/* getbook icon || image and Hello! */}
       <div className="hidden md:block md:w-full">
@@ -45,7 +52,7 @@ export default function DetailProfile(props) {
       <div className="flex flex-col items-center md:flex-row justify-center xl:max-w-6xl lg:=mx-auto">
         {/* Data user */}
         <div>
-          <div className="flex items-center mx-5 mt-12">
+          <div className="flex items-center mx-5 mt-12 lg:mx-0">
             <MdPersonOutline color="#25732D" size={75} />
             <div>
               <h5 className="font-Poppins text-2xl font-medium">
@@ -56,7 +63,7 @@ export default function DetailProfile(props) {
               </p>
             </div>
           </div>
-          <div className="flex items-center mx-6 mt-3">
+          <div className="flex items-center mx-6 mt-3 lg:mx-2">
             <MdAlternateEmail color="#25732D" size={60} />
             <div className="ml-3">
               <h5 className="font-Poppins text-2xl font-medium">
@@ -65,7 +72,7 @@ export default function DetailProfile(props) {
               <p className="font-Poppins text-xl text-[#636F64]/50">Username</p>
             </div>
           </div>
-          <div className="flex items-center ml-7 mt-3">
+          <div className="flex items-center ml-7 mt-3 lg:mx-2">
             <MdOutlinePhone color="#25732D" size={60} />
             <div className="ml-3">
               <h5 className="font-Poppins text-2xl font-medium">
@@ -101,12 +108,30 @@ export default function DetailProfile(props) {
           )}
 
           <div className="flex justify-between mt-5 mx-2">
-            <h5 className="font-Roboto text-2xl font-medium text-[#25732D]">
-              Dark
-            </h5>
-            <div className="w-20 h-10 shadow-lg rounded-3xl flex items-center">
-              <div className="w-8 h-8 rounded-full bg-[#25732D] ml-1"></div>
-            </div>
+            {theme === "light" ? (
+              <h5 className="font-Roboto text-2xl font-medium text-[#25732D]">
+                Dark
+              </h5>
+            ) : (
+              <h5 className="font-Roboto text-2xl font-medium text-[#25732D]">
+                Light
+              </h5>
+            )}
+            {theme === "light" ? (
+              <div
+                onClick={() => handleTheme(theme === "dark" ? "light" : "dark")}
+                className="w-20 h-10 shadow-lg rounded-3xl flex items-center"
+              >
+                <MdLightMode className="ml-2" size={30} color="#25732D" />
+              </div>
+            ) : (
+              <div
+                onClick={() => handleTheme(theme === "dark" ? "light" : "dark")}
+                className="w-20 h-10 shadow-lg bg-[#25732D] rounded-3xl flex items-center relative overflow-hidden"
+              >
+                <MdModeNight className="ml-11" size={30} />
+              </div>
+            )}
           </div>
           <button
             onClick={() => handleLogout()}
