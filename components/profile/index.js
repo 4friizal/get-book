@@ -58,7 +58,7 @@ export default function DetailProfile(props) {
               <h5 className="font-Poppins text-2xl font-medium">
                 {props.fullname}
               </h5>
-              <p className="font-Poppins text-xl text-[#636F64]/50">
+              <p className="font-Poppins text-xl text-[#636F64]/50 dark:text-white/70">
                 Full Name
               </p>
             </div>
@@ -69,7 +69,9 @@ export default function DetailProfile(props) {
               <h5 className="font-Poppins text-2xl font-medium">
                 {props.username}
               </h5>
-              <p className="font-Poppins text-xl text-[#636F64]/50">Username</p>
+              <p className="font-Poppins text-xl text-[#636F64]/50 dark:text-white/70">
+                Username
+              </p>
             </div>
           </div>
           <div className="flex items-center ml-7 mt-3 lg:mx-2">
@@ -78,7 +80,9 @@ export default function DetailProfile(props) {
               <h5 className="font-Poppins text-2xl font-medium">
                 {props.phone}
               </h5>
-              <p className="font-Poppins text-xl text-[#636F64]/50">Phone</p>
+              <p className="font-Poppins text-xl text-[#636F64]/50 dark:text-white/70">
+                Phone
+              </p>
             </div>
           </div>
         </div>

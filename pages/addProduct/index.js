@@ -3,12 +3,64 @@ import InputFixed from "../../components/inputFixed";
 import Layout from "../../components/layout";
 
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import { TokenContext, RoleContext } from "../../utils/context";
 
 export default function AddProduct() {
-  const { token, seToken } = useContext(TokenContext);
+  const router = useRouter();
+  const token = localStorage.getItem("token");
+
+  const [objSubmit, setObjSubmit] = useState("");
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
+  const [stock, setStock] = useState("");
+  const [author, setAuthor] = useState("");
+  const [sinopsis, setSinopsis] = useState("");
+  const [file, setFile] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (token) {
+      router.push("/addProduct");
+    }
+  }, {});
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const formData = new FormData();
+    for (const key in objSubmit) {
+      formData.append(key, objSubmit[key]);
+    }
+    let requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    };
+    fetch("https://server.athaprojects.me/books", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const { message, data } = result;
+        if (data) {
+          router.push("/");
+        }
+        alert(message);
+        setObjSubmit({});
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error.toString());
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const handleChange = (value, key) => {
+    let temp = { ...objSubmit };
+    temp[key] = value;
+    setObjSubmit(temp);
+  };
 
   return (
     <Layout>
@@ -31,19 +83,56 @@ export default function AddProduct() {
         </div>
 
         {/* form edit profile */}
-        <form className=" mt-[97px] px-5 md:px-14 lg:px-5 lg:w-[50%] flex flex-col gap-8">
-          <InputFixed type="text" placeholder="Input your book title" />
-          <InputFixed type="text" placeholder="Input your book price" />
-          <InputFixed type="text" placeholder="Input yoru book stock" />
-          <InputFixed type="text" placeholder="Input your book author" />
-          <InputFixed type="text" placeholder="Input your book synopsis" />
+        <form
+          className=" mt-[97px] px-5 md:px-14 lg:px-5 lg:w-[50%] flex flex-col gap-8"
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          <InputFixed
+            type="text"
+            placeholder="Input your book title"
+            onChange={(e) => handleChange(e.target.value, "title")}
+          />
+          <InputFixed
+            type="text"
+            placeholder="Input your book price"
+            onChange={(e) => handleChange(e.target.value, "price")}
+          />
+          <InputFixed
+            type="text"
+            placeholder="Input yoru book stock"
+            onChange={(e) => handleChange(e.target.value, "stock")}
+          />
+          <InputFixed
+            type="text"
+            placeholder="Input your book author"
+            onChange={(e) => handleChange(e.target.value, "author")}
+          />
+          <InputFixed
+            type="text"
+            placeholder="Input your book synopsis"
+            onChange={(e) => handleChange(e.target.value, "sinopsis")}
+          />
           <label className="-mb-6 -mt-2">Input your book in pdf file</label>
-          <InputFixed type="file" placeholder="Input your book in pdf format" />
+          <InputFixed
+            type="file"
+            placeholder="Input your book in pdf format"
+            onChange={(e) => {
+              setFile(URL.createObjectURL(e.target.files[0]));
+              handleChange(e.target.files[0], "file");
+            }}
+          />
           <label className="-mb-6 -mt-2">Input your image book</label>
-          <InputFixed type="file" placeholder="Input your book image" />
+          <InputFixed
+            type="file"
+            placeholder="Input your book image"
+            onChange={(e) => {
+              setImage(URL.createObjectURL(e.target.files[0]));
+              handleChange(e.target.files[0], "image");
+            }}
+          />
 
           <ButtonSmall
-            className="mx-auto mt-7 py-2 bg-[#25732D] text-white text-2xl md:text-2xl font-bold rounded-full  w-[295px] md:w-[50%] "
+            className="mx-auto mt-7 mb-32 py-2 bg-[#25732D] text-white text-2xl md:text-2xl font-bold rounded-full  w-[295px] md:w-[50%] "
             label="Save"
           />
         </form>
