@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
 import { MdAddShoppingCart } from "react-icons/md";
 
 export default function CardProduct({
@@ -10,6 +12,35 @@ export default function CardProduct({
   price,
   stock,
 }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleAddToCart = async () => {
+    setLoading(true);
+    const body = {
+      books_id: id,
+    };
+    var requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    fetch("https://server.athaprojects.me/carts", requestOptions).then(
+      (response) =>
+        response
+          .json()
+          .then((result) => {
+            const { message } = result;
+            alert(message);
+          })
+          .catch((err) => {
+            alert(err.toString());
+          })
+          .finally(() => setLoading(false))
+    );
+  };
   return (
     <>
       <div className="w-40 h-52 lg:w-64 lg:h-96 rounded-2xl border-2 border-[#D9D9D9]">
@@ -38,6 +69,7 @@ export default function CardProduct({
         <button
           type="button"
           className="my-2 w-40 lg:w-64 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
+          onClick={() => handleAddToCart()}
         >
           <MdAddShoppingCart size={20} />
           <p className="font-Roboto mx-2">Add to Cart</p>
