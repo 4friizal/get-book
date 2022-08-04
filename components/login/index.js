@@ -30,24 +30,25 @@ export default function FormLogin() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     };
-    fetch("http://34.143.186.209:9000/login", requestOptions).then((response) =>
-      response
-        .json()
-        .then((result) => {
-          const { message, role, token } = result;
-          if (token) {
-            localStorage.setItem("token", token);
-            localStorage.setItem("role", role);
-            setToken(token);
-            setRole(role);
-            router.push("/");
-          }
-          alert(message);
-        })
-        .catch((err) => {
-          alert(err.toString());
-        })
-        .finally(() => setLoading(false))
+    fetch("https://server.athaprojects.me/login", requestOptions).then(
+      (response) =>
+        response
+          .json()
+          .then((result) => {
+            const { message, role, token } = result;
+            if (token) {
+              localStorage.setItem("token", token);
+              localStorage.setItem("role", role);
+              setToken(token);
+              setRole(role);
+              router.push("/");
+            }
+            alert(message);
+          })
+          .catch((err) => {
+            alert(err.toString());
+          })
+          .finally(() => setLoading(false))
     );
   };
 

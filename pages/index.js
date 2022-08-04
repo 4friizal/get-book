@@ -5,7 +5,7 @@ import CardProduct from "../components/cardProduct";
 import Layout from "../components/layout";
 
 export async function getServerSideProps() {
-  const response = await fetch("http://34.143.186.209:9000/books");
+  const response = await fetch("https://server.athaprojects.me/books");
   const data = await response.json();
 
   return {

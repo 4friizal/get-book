@@ -31,7 +31,7 @@ export default function FormRegister() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     };
-    fetch("http://34.143.186.209:9000/register", requestOptions)
+    fetch("https://server.athaprojects.me/register", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         const { message, data } = result;
