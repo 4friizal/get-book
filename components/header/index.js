@@ -1,9 +1,37 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
 import { MdOutlineShoppingCart, MdSearch } from "react-icons/md";
 
 import logo from "../../assets/logo.png";
 
 export default function Header() {
+  const [carts, setCarts] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    var requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+
+    fetch("https://server.athaprojects.me/carts", requestOptions)
+      .then((res) => res.json())
+      .then((data) => {
+        setCarts(data.data);
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {});
+  };
+
   return (
     <header className="sticky top-0 z-30 w-full h-full bg-white dark:bg-black text-black dark:text-white font-Poppins">
       <div className="border-b-2 rounded-b-2xl md:rounded-b-0">
@@ -18,7 +46,18 @@ export default function Header() {
               />
             </div>
           </div>
-          <MdOutlineShoppingCart size={25} />
+          <Link href="/cart">
+            <a className="flex items-center">
+              <MdOutlineShoppingCart size={25} />
+              {carts?.length > 0 ? (
+                <span className="mx-1 w-5 h-5 rounded-full bg-[#25732D] text-white font-medium text-xs text-center items-center justify-center">
+                  {carts?.length}
+                </span>
+              ) : (
+                ""
+              )}
+            </a>
+          </Link>
         </div>
       </div>
     </header>
