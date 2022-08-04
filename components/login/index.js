@@ -87,7 +87,7 @@ export default function FormLogin() {
             <div>
               <input
                 type="text"
-                className="font-Roboto font-normal text-base pl-6 border-[#25732D] text-black rounded-3xl shadow-lg block w-full p-3 dark:shadow-md dark:shadow-white/40 dark:text-white"
+                className="font-Roboto font-normal text-base pl-6 border-[#25732D] text-black rounded-3xl shadow-lg block w-full p-3 dark:shadow-md dark:shadow-white/40 "
                 placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -96,7 +96,7 @@ export default function FormLogin() {
             <div>
               <input
                 type="password"
-                className="mt-5 font-Roboto font-normal text-base pl-6 border-[#25732D] text-black rounded-3xl shadow-lg  block w-full p-3 dark:shadow-md dark:shadow-white/40 dark:text-white"
+                className="mt-5 font-Roboto font-normal text-base pl-6 border-[#25732D] text-black rounded-3xl shadow-lg  block w-full p-3 dark:shadow-md dark:shadow-white/40 "
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
