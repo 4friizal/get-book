@@ -1,35 +1,61 @@
 import CardHistory from "../../components/cardHistory";
 import Layout from "../../components/layout";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-export async function getServerSideProps() {
-  const response = await fetch("https://server.athaprojects.me/orders");
-  const data = await response.json();
+export default function History() {
+  const token = localStorage.getItem("token");
+  const router = useRouter();
+  const [histories, setHistories] = useState([]);
+  // console.log(histories);
 
-  return {
-    props: { books: data.data },
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    var requestOptions = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    };
+
+    fetch("https://server.athaprojects.me/orders", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const { message, code, data } = result;
+        if (data) {
+          setHistories(data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally();
   };
-}
+  // };
 
-export default function History({ books }) {
-  console.log(books);
+  useEffect(() => {
+    if (!token) {
+      router.push("/auth/welcome");
+    }
+  });
+
   return (
     <Layout>
-      <div className="flex flex-col gap-11 mt-7">
-        <div className="p-8">
-          <div>
-            {books.map((book) => (
+      <div>
+        {histories.map((history) => (
+          <div key={history.id}>
+            {history.orders.map((order) => (
               <CardHistory
-                key={book.id}
-                id={book.id}
-                order_id={book.order_id}
-                invoice_id={book.invoice_id}
-                price={book.price}
-                qty={book.qty}
-                title={book.title}
+                price={order.price}
+                title={order.title}
+                image={order.image}
               />
             ))}
           </div>
-        </div>
+        ))}
       </div>
     </Layout>
   );
