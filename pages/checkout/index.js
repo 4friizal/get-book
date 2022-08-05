@@ -6,7 +6,7 @@ import CardCheckout from "../../components/cardCheckout";
 
 export default function Checkout() {
   return (
-    <Layout>
+    <Layout headTitle="Checkout">
       <div>
         <CardCheckout />
         <div className="font-bold text-lg font-Poppins text-white bg-[#25732D] px-4 py-3 mt-[34px] mb-[17px] mx-auto w-full md:w-[90%] lg:w-[850px] flex justify-between">
