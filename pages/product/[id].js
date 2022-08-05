@@ -108,11 +108,11 @@ export default function ProductDetail() {
           <h2 className="font-medium text-lg md:hidden text-right">
             IDR <span className="text-[#25732D]">{book.price}</span>
           </h2>
-          <div className="flex justify-center my-2 md:hidden">
+          <div className="flex flex-col justify-center my-2 md:hidden">
             {book.stock > 0 ? (
               <button
                 type="button"
-                className="my-4 w-52 lg:w-64 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
+                className="mx-auto my-4 w-52 lg:w-64 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
                 onClick={() => handleAddToCart()}
               >
                 <MdAddShoppingCart size={25} />
@@ -129,6 +129,20 @@ export default function ProductDetail() {
                 </p>
               </button>
             )}
+            {role === "admin" ? (
+              <Link href={`/editProduct/${encodeURIComponent(id)}`}>
+                <a className="flex flex-col">
+                  <button
+                    type="submit"
+                    className=" mx-auto my-2 p-1 bg-yellow-500 text-white text-lg  font-bold rounded-full  w-52 lg:w-64 flex items-center justify-center  "
+                  >
+                    Edit Product
+                  </button>
+                </a>
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
           <h3 className="font-medium text-lg md:mt-8 lg:mt-12 md:text-2xl lg:text-4xl">
             Synopsis
@@ -140,7 +154,7 @@ export default function ProductDetail() {
             {book.stock > 0 ? (
               <button
                 type="button"
-                className="my-8 w-72 lg:w-1/2 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
+                className="mx-auto my-8 w-72 lg:w-1/2 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
                 onClick={() => handleAddToCart()}
               >
                 <MdAddShoppingCart size={35} />
