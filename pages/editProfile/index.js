@@ -5,11 +5,10 @@ import InputFixed from "../../components/inputFixed";
 import ButtonSmall from "../../components/buttonSmall";
 import { useState, useEffect } from "react";
 
-export default function index() {
+export default function EditProfile() {
   const router = useRouter();
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState([]);
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
