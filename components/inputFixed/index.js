@@ -4,6 +4,7 @@ export default function InputFixed({
   placeholder,
   onChange,
   disabled,
+  value,
 }) {
   return (
     <input
@@ -12,6 +13,7 @@ export default function InputFixed({
       type={type}
       placeholder={placeholder}
       onChange={onChange}
+      value={value}
       // disabled={disabled}
     />
   );

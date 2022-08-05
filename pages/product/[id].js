@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 
 import { MdAddShoppingCart } from "react-icons/md";
 
@@ -11,6 +12,7 @@ export default function ProductDetail() {
   const { id } = router.query;
 
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   useEffect(() => {
     if (!token) {
@@ -134,7 +136,7 @@ export default function ProductDetail() {
           <p className="w-full break-words my-2 md:text-lg lg:text-2xl">
             {book.sinopsis}
           </p>
-          <div className="hidden justify-center my-2 md:flex">
+          <div className="hidden justify-center my-2 md:flex md:flex-col">
             {book.stock > 0 ? (
               <button
                 type="button"
@@ -150,12 +152,26 @@ export default function ProductDetail() {
               <button
                 disabled
                 type="button"
-                className="my-8 w-72 lg:w-1/2 bg-[#D9D9D9] text-white dark:text-black rounded-full flex items-center justify-center font-bold p-1"
+                className=" mx-auto my-8 w-72 lg:w-1/2 bg-[#D9D9D9] text-white dark:text-black rounded-full flex items-center justify-center font-bold p-1"
               >
                 <p className="font-Roboto text-center italic text-lg lg:text-xl">
                   Out of Stock
                 </p>
               </button>
+            )}
+            {role === "admin" ? (
+              <Link href={`/editProduct/${encodeURIComponent(id)}`}>
+                <a className="flex flex-col">
+                  <button
+                    type="submit"
+                    className=" mx-auto my-2 p-1 bg-yellow-500 text-white text-lg  font-bold rounded-full  w-72 lg:w-1/2 flex items-center justify-center  "
+                  >
+                    Edit Product
+                  </button>
+                </a>
+              </Link>
+            ) : (
+              ""
             )}
           </div>
         </div>

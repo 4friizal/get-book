@@ -49,6 +49,7 @@ export default function History() {
           <div key={history.id}>
             {history.orders.map((order) => (
               <CardHistory
+                key={order.id}
                 price={order.price}
                 title={order.title}
                 image={order.image}
