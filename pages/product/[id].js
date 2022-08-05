@@ -22,7 +22,7 @@ export default function ProductDetail() {
 
   const [book, setBook] = useState([]);
   const [isLoading, setLoading] = useState(false);
-
+  console.log(book);
   useEffect(() => {
     setLoading(true);
     if (router.isReady) {
