@@ -79,7 +79,7 @@ export default function Menu() {
     }
   };
   return (
-    <div className="block md:hidden absolute bottom-0 w-full bg-white dark:bg-black text-black dark:text-white font-Roboto">
+    <div className="block md:hidden sticky bottom-0 w-full bg-white dark:bg-black text-black dark:text-white font-Roboto">
       <div className="sticky bottom-0 z-30 border-t-2 rounded-t-2xl">
         {route === "/cart" ? (
           <div className="flex px-4 py-2 justify-between items-center">
