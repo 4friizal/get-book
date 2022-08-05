@@ -26,7 +26,7 @@ export default function Home({ books }) {
   return (
     <Layout headTitle="getbook">
       <div className="p-8">
-        <div>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 lg:gap-8">
           {books.map((book) => (
             <CardProduct
               key={book.id}
