@@ -6,6 +6,7 @@ import { TokenContext, RoleContext } from "../../utils/context";
 
 export default function FormLogin() {
   const { token, setToken } = useContext(TokenContext);
+  console.log(token);
   const [role, setRole] = useState(RoleContext);
   const router = useRouter();
   const [username, setUsername] = useState("");

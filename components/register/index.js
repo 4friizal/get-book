@@ -34,8 +34,9 @@ export default function FormRegister() {
     fetch("https://server.athaprojects.me/register", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        const { message, data } = result;
-        if (data) {
+        // console.log(result);
+        const { message, code } = result;
+        if (code === 201) {
           router.push("/auth/login");
         }
         alert(message);

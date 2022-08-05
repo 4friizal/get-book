@@ -52,8 +52,8 @@ export default function DetailProfile(props) {
       <div className="flex flex-col items-center md:flex-row justify-center xl:max-w-6xl lg:=mx-auto">
         {/* Data user */}
         <div>
-          <div className="flex items-center mx-5 mt-12 lg:mx-0">
-            <MdPersonOutline color="#25732D" size={75} />
+          <div className="flex items-center mx-5 mt-12 lg:mx-1">
+            <MdPersonOutline className="mx-0" color="#25732D" size={70} />
             <div>
               <h5 className="font-Poppins text-2xl font-medium">
                 {props.fullname}
@@ -63,9 +63,9 @@ export default function DetailProfile(props) {
               </p>
             </div>
           </div>
-          <div className="flex items-center mx-6 mt-3 lg:mx-2">
-            <MdAlternateEmail color="#25732D" size={60} />
-            <div className="ml-3">
+          <div className="flex items-center mx-6 mt-3 lg:mx-0">
+            <MdAlternateEmail className="mx-2" color="#25732D" size={60} />
+            <div>
               <h5 className="font-Poppins text-2xl font-medium">
                 {props.username}
               </h5>
@@ -74,9 +74,9 @@ export default function DetailProfile(props) {
               </p>
             </div>
           </div>
-          <div className="flex items-center ml-7 mt-3 lg:mx-2">
-            <MdOutlinePhone color="#25732D" size={60} />
-            <div className="ml-3">
+          <div className="flex items-center ml-7 mt-3 lg:mx-0">
+            <MdOutlinePhone className="mx-2" color="#25732D" size={60} />
+            <div>
               <h5 className="font-Poppins text-2xl font-medium">
                 {props.phone}
               </h5>
