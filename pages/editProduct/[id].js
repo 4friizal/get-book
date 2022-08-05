@@ -51,7 +51,7 @@ export default function EditProduct() {
       .then((result) => {
         const { message, data } = result;
         if (data) {
-          router.push("/");
+          router.push(`/product/${id}`);
         }
         alert(message);
         setObjSubmit({});
@@ -62,6 +62,35 @@ export default function EditProduct() {
       })
       .finally();
   };
+
+  const handleDeleteProduct = async () => {
+    var requestOptions = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    if (router.isReady) {
+      fetch(`https://server.athaprojects.me/books/${id}`, requestOptions).then(
+        (response) =>
+          response
+            .json()
+            .then((result) => {
+              const { code, message } = result;
+              if (code === 200) {
+                alert(message);
+                router.push("/");
+              }
+            })
+            .catch((err) => {
+              alert(err.toString());
+            })
+            .finally()
+      );
+    }
+  };
+
   const handleChange = (value, key) => {
     let temp = { ...objSubmit };
     temp[key] = value;
@@ -87,67 +116,68 @@ export default function EditProduct() {
             alt="book"
           />
         </div>
+        <div className="mt-[97px] px-5 md:px-14 lg:px-5 lg:w-[50%] flex flex-col justify-center items-center">
+          <form className="mx-auto" onSubmit={(e) => handleSubmit(e)}>
+            <InputFixed
+              type="text"
+              placeholder="Edit your book title"
+              value={objSubmit.title}
+              onChange={(e) => handleChange(e.target.value, "title")}
+            />
+            <InputFixed
+              type="text"
+              placeholder="Edit your book price"
+              value={objSubmit.price}
+              onChange={(e) => handleChange(e.target.value, "price")}
+            />
+            <InputFixed
+              type="text"
+              placeholder="Edit your book stock"
+              value={objSubmit.stock}
+              onChange={(e) => handleChange(e.target.value, "stock")}
+            />
+            <InputFixed
+              type="text"
+              placeholder="Edit your book author"
+              value={objSubmit.author}
+              onChange={(e) => handleChange(e.target.value, "author")}
+            />
+            <InputFixed
+              type="text"
+              placeholder="Edit your book synopsis"
+              value={objSubmit.sinopsis}
+              onChange={(e) => handleChange(e.target.value, "sinopsis")}
+            />
+            <label className="-mb-6 -mt-2">Input your book in pdf file</label>
+            <InputFixed
+              type="file"
+              placeholder="Edit your book in pdf format"
+              onChange={(e) => {
+                setFile(URL.createObjectURL(e.target.files[0]));
+                handleChange(e.target.files[0], "file");
+              }}
+            />
+            <label className="-mb-6 -mt-2">Input your image book</label>
+            <InputFixed
+              type="file"
+              placeholder="Edit your book image"
+              onChange={(e) => {
+                setImage(URL.createObjectURL(e.target.files[0]));
+                handleChange(e.target.files[0], "image");
+              }}
+            />
+            <ButtonSmall
+              className=" mx-auto my-7 py-2 bg-[#25732D] text-white text-2xl md:text-2xl font-bold rounded-full  w-[295px] md:w-full "
+              label="Save"
+            />
+          </form>
 
-        {/* form edit profile */}
-        <form
-          className="mt-[97px] px-5 md:px-14 lg:px-5 lg:w-[50%] flex flex-col gap-8"
-          onSubmit={(e) => handleSubmit(e)}
-        >
-          <InputFixed
-            type="text"
-            placeholder="Edit your book title"
-            value={objSubmit.title}
-            onChange={(e) => handleChange(e.target.value, "title")}
-          />
-          <InputFixed
-            type="text"
-            placeholder="Edit your book price"
-            value={objSubmit.price}
-            onChange={(e) => handleChange(e.target.value, "price")}
-          />
-          <InputFixed
-            type="text"
-            placeholder="Edit your book stock"
-            value={objSubmit.stock}
-            onChange={(e) => handleChange(e.target.value, "stock")}
-          />
-          <InputFixed
-            type="text"
-            placeholder="Edit your book author"
-            value={objSubmit.author}
-            onChange={(e) => handleChange(e.target.value, "author")}
-          />
-          <InputFixed
-            type="text"
-            placeholder="Edit your book synopsis"
-            value={objSubmit.sinopsis}
-            onChange={(e) => handleChange(e.target.value, "sinopsis")}
-          />
-          <label className="-mb-6 -mt-2">Input your book in pdf file</label>
-          <InputFixed
-            type="file"
-            placeholder="Edit your book in pdf format"
-            // value={objSubmit.file}
-            onChange={(e) => {
-              setFile(URL.createObjectURL(e.target.files[0]));
-              handleChange(e.target.files[0], "file");
-            }}
-          />
-          <label className="-mb-6 -mt-2">Input your image book</label>
-          <InputFixed
-            type="file"
-            placeholder="Edit your book image"
-            // value={objSubmit.image}
-            onChange={(e) => {
-              setImage(URL.createObjectURL(e.target.files[0]));
-              handleChange(e.target.files[0], "image");
-            }}
-          />
           <ButtonSmall
-            className=" mx-auto my-7 py-2 bg-[#25732D] text-white text-2xl md:text-2xl font-bold rounded-full  w-[295px] md:w-[50%] "
-            label="Save"
+            className=" mx-20 my-0 py-2 bg-[#FF4D00] text-white text-2xl md:text-2xl font-bold rounded-full  w-[295px] md:w-full "
+            label="Delete"
+            onClick={() => handleDeleteProduct()}
           />
-        </form>
+        </div>
       </div>
     </Layout>
   );

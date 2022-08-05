@@ -3,20 +3,14 @@ import InputFixed from "../../components/inputFixed";
 import Layout from "../../components/layout";
 
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AddProduct() {
   const router = useRouter();
   const token = localStorage.getItem("token");
 
   const [objSubmit, setObjSubmit] = useState("");
-  const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [price, setPrice] = useState("");
-  const [stock, setStock] = useState("");
-  const [author, setAuthor] = useState("");
-  const [sinopsis, setSinopsis] = useState("");
-  const [file, setFile] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -62,6 +56,10 @@ export default function AddProduct() {
     setObjSubmit(temp);
   };
 
+  if (loading) {
+    <div>Loading...</div>;
+  }
+
   return (
     <Layout>
       <div className=" mx-auto w-full md:w-[80%] lg:w-[95%] 2xl:w-[75%] lg:flex justify-between">
@@ -99,7 +97,7 @@ export default function AddProduct() {
           />
           <InputFixed
             type="text"
-            placeholder="Input yoru book stock"
+            placeholder="Input your book stock"
             onChange={(e) => handleChange(e.target.value, "stock")}
           />
           <InputFixed
