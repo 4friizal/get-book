@@ -44,6 +44,34 @@ export default function ProductDetail() {
     return <div>Loading...</div>;
   }
 
+  const handleAddToCart = async () => {
+    setLoading(true);
+    const body = {
+      books_id: id,
+    };
+    var requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    fetch("https://server.athaprojects.me/carts", requestOptions).then(
+      (response) =>
+        response
+          .json()
+          .then((result) => {
+            const { message } = result;
+            alert(message);
+          })
+          .catch((err) => {
+            alert(err.toString());
+          })
+          .finally(() => setLoading(false))
+    );
+  };
+
   return (
     <Layout headTitle={"Product Detail"}>
       <div className="flex flex-col md:flex-row md:p-8 md:h-screen">
@@ -85,6 +113,7 @@ export default function ProductDetail() {
               <button
                 type="button"
                 className="my-4 w-52 lg:w-64 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
+                onClick={() => handleAddToCart()}
               >
                 <MdAddShoppingCart size={25} />
                 <p className="font-Roboto mx-2 text-lg">Add to Cart</p>
@@ -111,7 +140,8 @@ export default function ProductDetail() {
             {book.stock > 0 ? (
               <button
                 type="button"
-                className="mx-auto my-8 w-72 lg:w-1/2 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
+                className="my-8 w-72 lg:w-1/2 bg-[#25732D] text-white rounded-full flex items-center justify-center font-bold p-1"
+                onClick={() => handleAddToCart()}
               >
                 <MdAddShoppingCart size={35} />
                 <p className="font-Roboto mx-2 text-lg lg:text-xl">
